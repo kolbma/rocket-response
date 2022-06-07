@@ -23,7 +23,7 @@ For usage add the crate to your dependencies
 
 ```toml
 [dependencies]
-rocket-response = { version = "0.0.1-rc.1" }
+rocket-response = { version = "0.0.1-rc.2" }
 ```
 
 ## Features
@@ -36,7 +36,7 @@ You can depend on a couple of features, which provide additional types.
 
 ```toml
 [dependencies]
-rocket-response = { version = "0.0.1-rc.1", features = ["json", "templates-tera"] }
+rocket-response = { version = "0.0.1-rc.2", features = ["json", "templates-tera"] }
 ```
 
 ## Example
@@ -68,9 +68,9 @@ pub(crate) fn rocket_response_generic2(
 [RocketResponse]: https://docs.rs/rocket-response/latest/rocket_response/enum.RocketResponse.html
 [RocketResponseGeneric]: https://docs.rs/rocket-response/latest/rocket_response/enum.RocketResponseGeneric.html
 [RocketResponseGeneric2]: https://docs.rs/rocket-response/latest/rocket_response/enum.RocketResponseGeneric2.html
-[Response]: https://docs.rs/rocket/0.5.0-rc.1/rocket/response/struct.Response.html
-[Responses]: https://docs.rs/rocket/0.5.0-rc.1/rocket/response/struct.Response.html
-[Flash]: https://docs.rs/rocket/0.5.0-rc.1/rocket/response/struct.Flash.html
+[Response]: https://docs.rs/rocket/0.5.0-rc.2/rocket/response/struct.Response.html
+[Responses]: https://docs.rs/rocket/0.5.0-rc.2/rocket/response/struct.Response.html
+[Flash]: https://docs.rs/rocket/0.5.0-rc.2/rocket/response/struct.Flash.html
 [issue]: https://github.com/kolbma/rocket-response/issues
 
 ## Licenses
@@ -79,7 +79,7 @@ You can choose between __[MIT License](https://opensource.org/licenses/MIT)__ or
 
 ### MIT License
 
-Copyright (c) 2021 Markus Kolb
+Copyright (c) 2022 Markus Kolb
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -89,7 +89,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ### Apache License 2.0
 
-Copyright 2021 Markus Kolb
+Copyright 2022 Markus Kolb
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
