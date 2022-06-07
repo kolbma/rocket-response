@@ -1,0 +1,2 @@
+msrv = "1.59.0"
+enum-variant-size-threshold = 384
