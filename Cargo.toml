@@ -1,6 +1,6 @@
 [package]
 name = "rocket-response"
-version = "0.0.1-rc.1"
+version = "0.0.1-rc.2"
 edition = "2018"
 license = "MIT OR Apache-2.0"
 description = "Provides enum for variable Rocket Responses"
@@ -13,8 +13,8 @@ categories = ["web-programming"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rocket = { version = "0.5.0-rc.1" }
-rocket_dyn_templates = { version = "0.1.0-rc.1", optional = true }
+rocket = { version = "0.5.0-rc.2" }
+rocket_dyn_templates = { version = "0.1.0-rc.2", optional = true }
 
 [features]
 json = ["rocket/json"]
