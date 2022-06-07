@@ -19,7 +19,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! rocket-response = { version = "0.0.1-rc.1" }
+//! rocket-response = { version = "0.0.1-rc.2" }
 //! ```
 //!
 //! ## Features
@@ -32,7 +32,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! rocket-response = { version = "0.0.1-rc.1", features = ["json", "templates-tera"] }
+//! rocket-response = { version = "0.0.1-rc.2", features = ["json", "templates-tera"] }
 //! ```
 //!
 //!
@@ -44,7 +44,7 @@
 #![deny(warnings)]
 #![deny(clippy::all)]
 #![deny(missing_docs)]
-#![deny(missing_doc_code_examples)]
+#![deny(rustdoc::missing_doc_code_examples)]
 
 #[cfg(any(feature = "json", feature = "msgpack"))]
 use rocket::serde;
@@ -52,7 +52,7 @@ use rocket::{
     fs::NamedFile,
     http::Status,
     response::{
-        content::{Css, Custom, Html, JavaScript, Json, MsgPack, Plain, Xml},
+        content::{RawCss, RawHtml, RawJavaScript, RawJson, RawMsgPack, RawText, RawXml},
         status::{
             Accepted, BadRequest, Conflict, Created, Forbidden, NoContent, NotFound, Unauthorized,
         },
@@ -92,32 +92,30 @@ pub enum RocketResponse {
     Conflict(Conflict<&'static str>),
     /// see [rocket::response::status::Created]
     Created(Created<&'static str>),
-    /// see [rocket::response::content::Css]
-    Css(Css<&'static str>),
-    /// see [rocket::response::content::Custom]
-    Custom(Custom<&'static str>),
+    /// see [rocket::response::content::RawCss]
+    Css(RawCss<&'static str>),
     /// see [File]
     File(File),
     /// see [rocket::response::Flash]
     Flash(Flash<&'static str>),
     /// see [rocket::response::status::Forbidden]
     Forbidden(Forbidden<&'static str>),
-    /// see [rocket::response::content::Html]
-    Html(Html<&'static str>),
-    /// see [rocket::response::content::JavaScript]
-    JavaScript(JavaScript<&'static str>),
-    /// see [rocket::response::content::Json]
-    Json(Json<&'static str>),
-    /// see [rocket::response::content::MsgPack]
-    MsgPack(MsgPack<&'static str>),
+    /// see [rocket::response::content::RawHtml]
+    Html(RawHtml<&'static str>),
+    /// see [rocket::response::content::RawJavaScript]
+    JavaScript(RawJavaScript<&'static str>),
+    /// see [rocket::response::content::RawJson]
+    Json(RawJson<&'static str>),
+    /// see [rocket::response::content::RawMsgPack]
+    MsgPack(RawMsgPack<&'static str>),
     /// see [NamedFile](rocket::fs::NamedFile)
     NamedFiled(NamedFile),
     /// see [rocket::response::status::NotFound]
     NotFound(NotFound<&'static str>),
     /// see [NoContent](rocket::response::status::NoContent)
     NoContent(NoContent),
-    /// see [rocket::response::content::Plain]
-    Plain(Plain<&'static str>),
+    /// see [rocket::response::content::RawText]
+    Plain(RawText<&'static str>),
     /// see [Redirect](rocket::response::Redirect)
     Redirect(Redirect),
 
@@ -150,8 +148,8 @@ pub enum RocketResponse {
     Unauthorized(Unauthorized<&'static str>),
     /// see [Vec](std::vec::Vec)
     Vec(Vec<u8>),
-    /// see [Xml](rocket::response::content::Xml)
-    Xml(Xml<&'static str>),
+    /// see [Xml](rocket::response::content::RawXml)
+    Xml(RawXml<&'static str>),
 }
 
 /// The non-generic and generic [Responses](rocket::response::Response) with a single type.
@@ -169,7 +167,7 @@ pub enum RocketResponse {
 ///         1 => RocketResponse::Unauthorized(status::Unauthorized(Some(
 ///             "admin need authentication",
 ///         ))),
-///         _ => RocketResponse::Html(response::content::Html(
+///         _ => RocketResponse::Html(response::content::RawHtml(
 ///            "<html><body>Hello world</body></html",
 ///         )),
 ///     }
@@ -188,32 +186,30 @@ where
     Conflict(Conflict<T>),
     /// see [rocket::response::status::Created]
     Created(Created<T>),
-    /// see [rocket::response::content::Css]
-    Css(Css<T>),
-    /// see [rocket::response::content::Custom]
-    Custom(Custom<T>),
+    /// see [rocket::response::content::RawCss]
+    Css(RawCss<T>),
     /// see [File]
     File(File),
     /// see [rocket::response::Flash]
     Flash(Flash<T>),
     /// see [rocket::response::status::Forbidden]
     Forbidden(Forbidden<T>),
-    /// see [rocket::response::content::Html]
-    Html(Html<T>),
-    /// see [rocket::response::content::JavaScript]
-    JavaScript(JavaScript<T>),
-    /// see [rocket::response::content::Json]
-    Json(Json<T>),
-    /// see [rocket::response::content::MsgPack]
-    MsgPack(MsgPack<T>),
+    /// see [rocket::response::content::RawHtml]
+    Html(RawHtml<T>),
+    /// see [rocket::response::content::RawJavaScript]
+    JavaScript(RawJavaScript<T>),
+    /// see [rocket::response::content::RawJson]
+    Json(RawJson<T>),
+    /// see [rocket::response::content::RawMsgPack]
+    MsgPack(RawMsgPack<T>),
     /// see [NamedFile](rocket::fs::NamedFile)
     NamedFiled(NamedFile),
     /// see [rocket::response::status::NotFound]
     NotFound(NotFound<T>),
     /// see [NoContent](rocket::response::status::NoContent)
     NoContent(NoContent),
-    /// see [rocket::response::content::Plain]
-    Plain(Plain<T>),
+    /// see [rocket::response::content::RawText]
+    Plain(RawText<T>),
     /// see [Redirect](rocket::response::Redirect)
     Redirect(Redirect),
 
@@ -246,8 +242,8 @@ where
     Unauthorized(Unauthorized<T>),
     /// see [Vec](std::vec::Vec)
     Vec(Vec<u8>),
-    /// see [Xml](rocket::response::content::Xml)
-    Xml(Xml<T>),
+    /// see [Xml](rocket::response::content::RawXml)
+    Xml(RawXml<T>),
 }
 
 /// The non-generic and generic [Responses](rocket::response::Response) with 2 types.
@@ -270,7 +266,7 @@ where
 ///         1 => RocketResponse::Unauthorized(status::Unauthorized(Some(
 ///             "admin need authentication",
 ///         ))),
-///         _ => RocketResponse::Html(response::content::Html(
+///         _ => RocketResponse::Html(response::content::RawHtml(
 ///             "<html><body>Hello world</body></html",
 ///         )),
 ///     }
@@ -289,10 +285,8 @@ where
     Conflict(Conflict<T>),
     /// see [rocket::response::status::Created]
     Created(Created<T>),
-    /// see [rocket::response::content::Css]
-    Css(Css<T>),
-    /// see [rocket::response::content::Custom]
-    Custom(Custom<T>),
+    /// see [rocket::response::content::RawCss]
+    Css(RawCss<T>),
     /// see [File]
     File(File),
     /// with generic type U  
@@ -300,22 +294,22 @@ where
     Flash(Flash<U>),
     /// see [rocket::response::status::Forbidden]
     Forbidden(Forbidden<T>),
-    /// see [rocket::response::content::Html]
-    Html(Html<T>),
-    /// see [rocket::response::content::JavaScript]
-    JavaScript(JavaScript<T>),
-    /// see [rocket::response::content::Json]
-    Json(Json<T>),
-    /// see [rocket::response::content::MsgPack]
-    MsgPack(MsgPack<T>),
+    /// see [rocket::response::content::RawHtml]
+    Html(RawHtml<T>),
+    /// see [rocket::response::content::RawJavaScript]
+    JavaScript(RawJavaScript<T>),
+    /// see [rocket::response::content::RawJson]
+    Json(RawJson<T>),
+    /// see [rocket::response::content::RawMsgPack]
+    MsgPack(RawMsgPack<T>),
     /// see [NamedFile](rocket::fs::NamedFile)
     NamedFiled(NamedFile),
     /// see [NoContent](rocket::response::status::NoContent)
     NotFound(NotFound<T>),
     /// see [rocket::response::status::NoContent]
     NoContent(NoContent),
-    /// see [rocket::response::content::Plain]
-    Plain(Plain<T>),
+    /// see [rocket::response::content::RawText]
+    Plain(RawText<T>),
     /// see [rocket::response::Redirect]
     Redirect(Redirect),
 
@@ -348,8 +342,8 @@ where
     Unauthorized(Unauthorized<T>),
     /// see [Vec](std::vec::Vec)
     Vec(Vec<u8>),
-    /// see [Xml](rocket::response::content::Xml)
-    Xml(Xml<T>),
+    /// see [Xml](rocket::response::content::RawXml)
+    Xml(RawXml<T>),
 }
 
 #[cfg(test)]
@@ -380,7 +374,7 @@ mod tests {
             1 => RocketResponseGeneric::Unauthorized(status::Unauthorized(Some(
                 "admin need authentication",
             ))),
-            _ => RocketResponseGeneric::Html(response::content::Html(
+            _ => RocketResponseGeneric::Html(response::content::RawHtml(
                 "<html><body>Hello world</body></html",
             )),
         }
@@ -398,7 +392,7 @@ mod tests {
             1 => RocketResponseGeneric2::Unauthorized(status::Unauthorized(Some(
                 "admin need authentication",
             ))),
-            _ => RocketResponseGeneric2::Html(response::content::Html(
+            _ => RocketResponseGeneric2::Html(response::content::RawHtml(
                 "<html><body>Hello world</body></html",
             )),
         }
